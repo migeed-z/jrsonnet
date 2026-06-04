@@ -1,0 +1,19 @@
+[package]
+name = "jrsonnet-interner"
+description = "String interner used by jrsonnet"
+keywords = ["jsonnet", "interner", "string"]
+categories = ["data-structures", "memory-management"]
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+jrsonnet-gcmodule.workspace = true
+
+rustc-hash.workspace = true
+hashbrown = { workspace = true, features = ["inline-more"] }

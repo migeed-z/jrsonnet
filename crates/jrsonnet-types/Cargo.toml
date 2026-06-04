@@ -1,0 +1,22 @@
+[package]
+name = "jrsonnet-types"
+description = "Type system definitions used by jrsonnet"
+keywords = ["jsonnet", "types"]
+categories = ["data-structures"]
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+jrsonnet-gcmodule.workspace = true
+
+peg.workspace = true
+
+[features]
+experimental = ["exp-bigint"]
+exp-bigint = []

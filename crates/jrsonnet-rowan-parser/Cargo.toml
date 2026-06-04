@@ -1,0 +1,28 @@
+[package]
+name = "jrsonnet-rowan-parser"
+description = "Rowan-based concrete syntax tree parser for jsonnet, suitable for tooling and LSP"
+keywords = ["jsonnet", "parser", "rowan", "cst"]
+categories = ["parser-implementations"]
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow.workspace = true
+drop_bomb.workspace = true
+hi-doc.workspace = true
+indoc.workspace = true
+jrsonnet-lexer.workspace = true
+rowan.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+indoc.workspace = true
+insta.workspace = true
+anyhow.workspace = true
+strip-ansi-escapes.workspace = true

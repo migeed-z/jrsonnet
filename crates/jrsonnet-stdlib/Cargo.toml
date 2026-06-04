@@ -1,0 +1,60 @@
+[package]
+name = "jrsonnet-stdlib"
+description = "Jsonnet standard library implementation for jrsonnet"
+keywords = ["jsonnet", "stdlib"]
+categories = ["template-engine"]
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+experimental = [
+  "exp-preserve-order",
+  "exp-bigint",
+  "exp-null-coaelse",
+  "exp-regex",
+]
+# Add order preservation flag to some functions
+exp-preserve-order = ["jrsonnet-evaluator/exp-preserve-order"]
+# Bigint type
+exp-bigint = ["dep:num-bigint", "jrsonnet-evaluator/exp-bigint"]
+
+exp-null-coaelse = ["jrsonnet-evaluator/exp-null-coaelse"]
+# std.regexMatch and other helpers
+exp-regex = ["dep:regex", "dep:lru", "dep:rustc-hash"]
+
+[dependencies]
+jrsonnet-evaluator.workspace = true
+jrsonnet-macros.workspace = true
+jrsonnet-gcmodule.workspace = true
+
+# Used for std.parseJson/std.parseYaml
+serde.workspace = true
+
+# std.md5
+md5.workspace = true
+# std.sha1
+sha1.workspace = true
+# std.sha256, std.sha512
+sha2.workspace = true
+# std.sha3
+sha3.workspace = true
+# std.base64
+base64.workspace = true
+# std.parseJson
+serde_json.workspace = true
+# std.parseYaml
+serde-saphyr.workspace = true
+
+hex.workspace = true
+num-bigint = { workspace = true, optional = true }
+
+# regex
+regex = { workspace = true, optional = true }
+lru = { workspace = true, optional = true }
+rustc-hash = { workspace = true, optional = true }

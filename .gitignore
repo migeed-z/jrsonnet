@@ -1,0 +1,15 @@
+/target
+
+.idea
+.vscode
+.direnv
+
+# Nix artifacts
+/result
+/result-*
+
+cache
+
+jsonnet-cpp
+jsonnet-sjsonnet
+benchmarks

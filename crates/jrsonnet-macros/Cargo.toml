@@ -1,0 +1,22 @@
+[package]
+name = "jrsonnet-macros"
+description = "Procedural macros to reduce boilerplate in jrsonnet-evaluator usage"
+keywords = ["jsonnet", "macros"]
+categories = ["development-tools::procedural-macro-helpers"]
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+version.workspace = true
+
+[lints]
+workspace = true
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro2.workspace = true
+quote.workspace = true
+syn = { workspace = true, features = ["full"] }
+syn-dissect-closure.workspace = true

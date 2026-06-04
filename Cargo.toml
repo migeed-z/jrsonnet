@@ -1,0 +1,203 @@
+[workspace]
+members = [
+  "crates/*",
+  "bindings/jrsonnet-web",
+  "bindings/jsonnet",
+  "cmds/*",
+  "tests",
+  "xtask",
+]
+default-members = [
+  "cmds/jrsonnet",
+  "cmds/jrsonnet-fmt",
+  "cmds/jrb",
+  "bindings/jsonnet",
+]
+resolver = "2"
+
+[workspace.package]
+authors = ["Yaroslav Bolyukin <iam@lach.pw>"]
+edition = "2024"
+license = "MIT"
+repository = "https://github.com/deltarocks/jrsonnet"
+version = "0.5.0-pre99"
+
+[workspace.dependencies]
+jrsonnet-evaluator = { path = "./crates/jrsonnet-evaluator", version = "0.5.0-pre99" }
+jrsonnet-macros = { path = "./crates/jrsonnet-macros", version = "0.5.0-pre99" }
+jrsonnet-ir = { path = "./crates/jrsonnet-ir", version = "0.5.0-pre99" }
+jrsonnet-ir-parser = { path = "./crates/jrsonnet-ir-parser", version = "0.5.0-pre99" }
+jrsonnet-peg-parser = { path = "./crates/jrsonnet-peg-parser", version = "0.5.0-pre99" }
+jrsonnet-rowan-parser = { path = "./crates/jrsonnet-rowan-parser", version = "0.5.0-pre99" }
+jrsonnet-interner = { path = "./crates/jrsonnet-interner", version = "0.5.0-pre99" }
+jrsonnet-stdlib = { path = "./crates/jrsonnet-stdlib", version = "0.5.0-pre99" }
+jrsonnet-cli = { path = "./crates/jrsonnet-cli", version = "0.5.0-pre99" }
+jrsonnet-types = { path = "./crates/jrsonnet-types", version = "0.5.0-pre99" }
+jrsonnet-formatter = { path = "./crates/jrsonnet-formatter", version = "0.5.0-pre99" }
+jrsonnet-lexer = { path = "./crates/jrsonnet-lexer", version = "0.5.0-pre99" }
+jrsonnet-pkg = { path = "./crates/jrsonnet-pkg", version = "0.5.0-pre99" }
+jrsonnet-gcmodule = { version = "0.5.0" }
+# Diagnostics.
+# hi-doc is my library, which handles text formatting very well, but isn't polished enough yet
+# Previous implementation was based on annotate-snippets, which I don't like for many reasons.
+#
+# I'm against using miette, because I want to reuse data between interpreter and annotations, yet miette
+#   and other libraries want to handle spans etc by itself, which is okay for compiler diagnostics, but is
+#   bad for interpreter, where interpreter and parser are paired much closer.
+hi-doc = { version = "0.3.0", default-features = false }
+
+# CLI
+clap = "4.5"
+clap_complete = "4.5"
+
+# Parsing, manifestification is implemented manually everywhere
+serde = "1.0.228"
+serde_json = "1.0.149"
+serde-saphyr = { version = "0.0.27", default-features = false, features = [
+  "deserialize",
+] }
+
+# Error handling
+anyhow = "1.0.101"
+thiserror = "2.0.18"
+
+# Code formatting
+dprint-core = "0.67.4"
+
+# Evaluator
+stacker = "0.1.23"
+smallvec = "1.15.1"
+educe = { version = "0.6.0", default-features = false }
+url = "2.5.8"
+rustversion = "1.0.22"
+
+# Stdlib hashing functions
+md5 = "0.8.0"
+sha1 = "0.11.0"
+sha2 = "0.11.0"
+sha3 = "0.12.0"
+hex = "0.4.3"
+
+# Source code parsing.
+# Jrsonnet has two parsers for jsonnet - one is for execution, and another is for better parsing diagnostics/lints/LSP.
+# First (and fast one) is based on peg, second is based on rowan.
+peg = "0.8.5"
+logos = "0.16.1"
+ungrammar = "1.16.1"
+rowan = "0.16.1"
+
+mimallocator = "0.1.3"
+indoc = "2.0"
+tempfile = "3.24"
+pathdiff = "0.2.3"
+hashbrown = "0.17.0"
+static_assertions = "1.1"
+rustc-hash = "2.1"
+num-bigint = "0.4.6"
+strsim = "0.11.1"
+proc-macro2 = "1.0"
+quote = "1.0"
+syn = "2.0"
+drop_bomb = "0.1.5"
+base64 = "0.22.1"
+indexmap = "2.13.0"
+itertools = "0.14.0"
+xshell = "0.2.7"
+
+regex = "1.12"
+lru = "0.18.0"
+
+syn-dissect-closure = "0.1.0"
+
+# Tests/benchmarks
+insta = { version = "1.46", features = ["glob"] }
+criterion = { version = "0.8" }
+strip-ansi-escapes = "0.2.1"
+nix = { version = "0.31", features = ["process"] }
+
+# Web
+wasm-bindgen = "=0.2.106"
+wasm-bindgen-futures = "0.4.56"
+js-sys = "0.3.83"
+console_error_panic_hook = "0.1"
+getrandom = "0.3.4"
+
+# Bundler
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
+reqwest = { version = "0.13", default-features = false, features = [
+  "blocking",
+] }
+zip = { version = "8", default-features = false, features = ["deflate"] }
+directories = "6.0.0"
+gix = { version = "0.83.0", features = ["blocking-network-client"] }
+camino = { version = "1.2.2", features = ["serde1"] }
+rustls = { version = "0.23", default-features = false }
+
+[workspace.lints.rust]
+unsafe_op_in_unsafe_fn = "deny"
+
+# TODO: add docs everywhere
+# missing_doc = "warn"
+
+elided_lifetimes_in_paths = "allow"
+explicit_outlives_requirements = "allow"
+noop_method_call = "allow"
+single_use_lifetimes = "allow"
+variant_size_differences = "allow"
+macro_expanded_macro_exports_accessed_by_absolute_paths = "allow"
+
+[workspace.lints.rustdoc]
+all = "warn"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
+nursery = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+
+ptr_arg = "allow"
+# Too verbose
+must_use_candidate = "allow"
+# A lot of functions pass around errors thrown by code
+missing_errors_doc = "allow"
+# A lot of pointers have interior Rc
+needless_pass_by_value = "allow"
+# Its fine
+wildcard_imports = "allow"
+enum_glob_use = "allow"
+module_name_repetitions = "allow"
+# False positives
+# https://github.com/rust-lang/rust-clippy/issues/6902
+use_self = "allow"
+# https://github.com/rust-lang/rust-clippy/issues/8539
+iter_with_drain = "allow"
+type_repetition_in_bounds = "allow"
+# ci is being run with nightly, but library should work on stable
+missing_const_for_fn = "allow"
+# too many false-positives with .expect() calls
+missing_panics_doc = "allow"
+# false positive for IStr type. There is an configuration option for
+# such cases, but it doesn't work:
+# https://github.com/rust-lang/rust-clippy/issues/9801
+mutable_key_type = "allow"
+# false positives
+redundant_pub_crate = "allow"
+# Sometimes code is fancier without that
+manual_let_else = "allow"
+# Something is broken about that lint, can't be allowed for
+# codegenerated-stdlib block
+similar_names = "allow"
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+debug = 0
+panic = "abort"
+strip = true
+
+[profile.releasedebug]
+inherits = "release"
+debug = 2
+panic = "unwind"
+strip = false

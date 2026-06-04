@@ -1,0 +1,59 @@
+[package]
+name = "jrsonnet"
+description = "Rust implementation of the jsonnet command-line interpreter"
+keywords = ["jsonnet", "json", "config", "cli"]
+categories = ["command-line-utilities", "config", "template-engine"]
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+version.workspace = true
+default-run = "jrsonnet"
+
+[lints]
+workspace = true
+
+[features]
+experimental = [
+  "exp-preserve-order",
+  "exp-destruct",
+  "exp-null-coaelse",
+  "exp-object-iteration",
+  "exp-bigint",
+  "exp-apply",
+]
+# Use mimalloc as allocator
+mimalloc = ["mimallocator"]
+# Experimental feature, which allows to preserve order of object fields
+exp-preserve-order = [
+  "jrsonnet-evaluator/exp-preserve-order",
+  "jrsonnet-cli/exp-preserve-order",
+]
+# Destructuring of locals
+exp-destruct = ["jrsonnet-evaluator/exp-destruct"]
+# Iteration over objects using [key]: value syntax
+exp-object-iteration = ["jrsonnet-evaluator/exp-object-iteration"]
+# Bigint type
+exp-bigint = ["jrsonnet-evaluator/exp-bigint", "jrsonnet-cli/exp-bigint"]
+# std.regex and co.
+exp-regex = ["jrsonnet-cli/exp-regex"]
+# obj?.field, obj?.['field']
+exp-null-coaelse = [
+  "jrsonnet-evaluator/exp-null-coaelse",
+  "jrsonnet-cli/exp-null-coaelse",
+]
+# --exp-apply
+exp-apply = []
+
+[dependencies]
+jrsonnet-evaluator.workspace = true
+jrsonnet-cli.workspace = true
+jrsonnet-gcmodule.workspace = true
+
+mimallocator = { workspace = true, optional = true }
+thiserror.workspace = true
+clap = { workspace = true, features = ["derive"] }
+clap_complete.workspace = true
+serde_json.workspace = true
+serde = { workspace = true, features = ["derive"] }
+hi-doc.workspace = true

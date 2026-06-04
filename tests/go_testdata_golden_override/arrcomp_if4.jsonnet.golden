@@ -1,0 +1,2 @@
+static analysis errors
+    arrcomp_if4.jsonnet:1:33 error: undefined local: y
